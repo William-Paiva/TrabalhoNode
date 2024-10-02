@@ -1,16 +1,24 @@
 const express = require('express');
 const { adicionarPontos, gerarClassificacao } = require('./funcoes');
+const path = require('path');  
 
 const app = express();
+
+// configurando o ejs para uso
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); 
+
+// arquivos estáticos
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-// Rota 1: Quadro de classificação
+
 app.get('/', (req, res) => {
     const classificacao = gerarClassificacao();
-    res.json(classificacao);
+    res.render('classificacao', { classificacao });  // Renderiza a view com dados
 });
 
-// Rota 2: Formulário de lançamento
+
 app.get('/lancamento', (req, res) => {
     const formHtml = `
         <form action="/lancamento" method="post">
@@ -37,12 +45,10 @@ app.post('/lancamento', (req, res) => {
     res.redirect('/');
 });
 
-// Rota 3: Verificação de status
 app.get('/status', (req, res) => {
     res.send('OK');
 });
 
-// Configurando o servidor para escutar na porta 3000
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);

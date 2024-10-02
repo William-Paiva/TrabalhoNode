@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classificação</title>
+    <script>
+        // aqui vai recarregar a página a cada 10 segundos
+        setTimeout(() => {
+            location.reload(); // Recarrega a página
+        }, 10000); 
+    </script>
+</head>
+<body>
+    <h1>Classificação</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Equipe</th>
+                <th>Pontuação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% classificacao.forEach(item => { %>
+                <tr>
+                    <td><%= item.equipe %></td>
+                    <td><%= item.pontuacao %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>
